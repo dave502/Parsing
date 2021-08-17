@@ -61,6 +61,8 @@ while new_letters_found:
       letter_id = get_id_from_url(letter_href)
 
       # если в полученых письмах этого id нет, значит письмо новое
+      ## вероятно, правильнее было бы брать последние 7(?) новых элементов из letters_elements,
+      ## это бы ускорило работу и отпала бы необходимость проверять уникальность letter_id
       if letter_id in [letter['_id'] for letter in letters_list]: #[-20:]
         continue
       else:
@@ -73,6 +75,7 @@ while new_letters_found:
       # ждём пока вкладка с письмом откроется
       # ожидалось, что WebDriverWait будет ждать полной загрузки страницы, но всё равно элементы в новой вкладке не успевают загрузиться
       WebDriverWait(driver, 120).until(EC.new_window_is_opened(windows_before))
+      # хендлер новой вкладки
       window_after = driver.window_handles[1]
       # переключаемся на новую вкладку
       driver.switch_to.window(window_after)
@@ -92,7 +95,6 @@ while new_letters_found:
       letters_list.append(letter_data)
 
       # запись в БД
-      # update_one работает очень медленно
       try:
         db_inbox.update_one({'_id': letter_id}, {"$set": letter_data}, upsert=True)
       except Exception as e:
