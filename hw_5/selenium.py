@@ -45,7 +45,7 @@ button_password_wait = wait.until(EC.element_to_be_clickable((By.XPATH, "//butto
 input_password_wait.send_keys(password)
 button_password_wait.click()
 
-letters_list = []
+#letters_list = []
 new_letters_found = True
 
 # пока есть новые письма скроллим вниз
@@ -91,8 +91,8 @@ while new_letters_found:
       body_wait = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'letter-body__body')))
       letter_data['body'] = body_wait.get_attribute('innerHTML')
       print(f'прочитано письмо {letter_data["subject"]}')
-      # записываем данные письма в список писем
-      letters_list.append(letter_data)
+      ## записываем данные письма в список писем
+      #letters_list.append(letter_data)
 
       # запись в БД
       try:
