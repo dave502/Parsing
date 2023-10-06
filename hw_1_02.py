@@ -1,7 +1,7 @@
 # api dictionary.yandex для перевода текста
 import requests
 import json
-api_key = 'dict.1.1.20210731T121051Z.88235e3a50c76deb.f46658f04a0c5cb93f33e82daafd5ad6f091e9c2'
+api_key = ''
 service = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup'
 languages = 'en-ru'
 
